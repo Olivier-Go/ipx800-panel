@@ -10,6 +10,9 @@ const App = () => (
   <div className="app">
     <img src={reactLogo} alt="react logo" />
     <h1>Composant : App</h1>
+    <code>
+      import React from 'react';
+    </code>
   </div>
 );
 

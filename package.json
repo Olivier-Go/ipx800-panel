@@ -1,5 +1,7 @@
 {
-  "name": "react-modele",
+  "name": "ipx800-react-pwa",
+  "version": "0.1.0",
+  "private": true,
   "scripts": {
     "start": "cross-env NODE_ENV=development webpack-dev-server --open --config config/webpack.dev.js",
     "build": "cross-env NODE_ENV=production webpack --config config/webpack.prod.js",
@@ -16,7 +18,7 @@
     "@babel/preset-react": "*",
     "babel-eslint": "*",
     "babel-loader": "*",
-    "bundle-stats-webpack-plugin": "^2.0.1",
+    "bundle-stats-webpack-plugin": "*",
     "clean-webpack-plugin": "*",
     "copy-webpack-plugin": "*",
     "cross-env": "*",
