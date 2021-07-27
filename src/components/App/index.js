@@ -1,20 +1,32 @@
 // == Import npm
-import React from 'react';
+import React, { useEffect } from 'react';
+import { ThemeProvider } from '@material-ui/core/styles';
 
-// == Import
-import reactLogo from './react-logo.svg';
-import './styles.css';
+// == Import components
+import { CssBaseline, Container } from '@material-ui/core';
+import Header from '../../containers/Header';
+
+// == Import styles
+import appTheme from './appTheme';
+import appStyles from './appStyles';
 
 // == Composant
-const App = () => (
-  <div className="app">
-    <img src={reactLogo} alt="react logo" />
-    <h1>Composant : App</h1>
-    <code>
-      import React from 'react';
-    </code>
-  </div>
-);
+const App = () => {
+  const classes = appStyles();
+
+  useEffect(() => {
+
+  }, []);
+
+  return (
+    <ThemeProvider theme={appTheme}>
+      <CssBaseline />
+      <Container className={classes.wrapper}>
+        <Header />
+      </Container>
+    </ThemeProvider>
+  );
+};
 
 // == Export
 export default App;
