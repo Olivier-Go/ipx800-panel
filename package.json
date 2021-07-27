@@ -48,8 +48,16 @@
     "webpack-merge": "*"
   },
   "dependencies": {
+    "@material-ui/core": "*",
+    "@material-ui/icons": "*",
+    "axios": "*",
+    "dotenv": "*",
     "prop-types": "*",
     "react": "*",
-    "react-dom": "*"
+    "react-dom": "*",
+    "react-redux": "*",
+    "react-router-dom": "*",
+    "redux": "*",
+    "redux-devtools-extension": "*"
   }
 }
