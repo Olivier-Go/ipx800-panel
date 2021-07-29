@@ -29,8 +29,8 @@ const Header = () => {
   };
 
   return (
-    <div className={classes.navbar}>
-      <AppBar position="sticky" color="transparent" elevation="0">
+    <>
+      <AppBar position="sticky" color="transparent" elevation={0}>
         <Toolbar>
           <IconButton edge="start" className={classes.menuBurger} color="inherit" aria-label="menu" aria-controls="fade-menu" aria-haspopup="true" onClick={handleClick}>
             <MenuIcon />
@@ -42,11 +42,9 @@ const Header = () => {
               </IconButton>
             </div>
             <List className={classes.menuList}>
-              {['Item1', 'Item2', 'Item3', 'Item4'].map((text) => (
-                <ListItem button key={text}>
-                  <ListItemText primary={text} align="center" />
-                </ListItem>
-              ))}
+              <ListItem button key={1}>
+                <ListItemText primary="Paramètres" align="center" />
+              </ListItem>
             </List>
           </Drawer>
           <div className={classes.status}>
@@ -57,7 +55,7 @@ const Header = () => {
           </div>
         </Toolbar>
       </AppBar>
-    </div>
+    </>
   );
 };
 

@@ -7,7 +7,6 @@ const appStyles = makeStyles((theme) => ({
     minHeight: '100vh',
     display: 'flex',
     flexDirection: 'column',
-    justifyContent: 'space-between',
     padding: 0,
     backgroundColor: deepPurple[800],
     color: theme.palette.primary.contrastText,

@@ -12,15 +12,15 @@ const appTheme = createTheme({
   },
   palette: {
     primary: {
-      light: '#8561c5',
-      main: '#673ab7',
-      dark: '#482880',
+      light: '#8559da',
+      main: '#512da8',
+      dark: '#140078',
       contrastText: '#fff',
     },
     secondary: {
-      light: '#dd33fa',
-      main: '#d500f9',
-      dark: '#9500ae',
+      light: '#ffffff',
+      main: '#ede7f6',
+      dark: '#bbb5c3',
       contrastText: '#000',
     },
     info: blue,

@@ -1,9 +1,6 @@
 import { makeStyles } from '@material-ui/core/styles';
 
 const headerStyles = makeStyles((theme) => ({
-  navbar: {
-    flexGrow: 1,
-  },
   menuBurger: {
     marginRight: theme.spacing(2),
   },
@@ -32,6 +29,15 @@ const headerStyles = makeStyles((theme) => ({
   },
   statusIcon: {
     marginRight: theme.spacing(0.5),
+    animationName: '$blinker',
+    animationDuration: '2s',
+    animationTimingFunction: 'ease-in-out;',
+    animationIterationCount: 'infinite',
+  },
+  '@keyframes blinker': {
+    from: { opacity: 0 },
+    '50%': { opacity: 0.5 },
+    to: { opacity: 0 },
   },
 }));
 

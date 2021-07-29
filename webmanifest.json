@@ -3,18 +3,18 @@
   "name": "IPX800 Panel",
   "short_name": "IPX800 Panel",
   "description": "PWA for GCE Electronics IPX800 controls",
-  "background_color": "#383838",
+  "background_color": "#4527A0",
   "inject": true,
   "fingerprints": true,
-  "theme_color": "#F7F9FA",
-  "display": "standalone",
+  "theme_color": "#4527A0",
+  "display": "fullscreen",
   "start_url": ".",
   "ios": true,
   "includeDirectory": true,
   "icons": [
     {
       "src": "src/assets/favicon.png",
-      "sizes": [96, 128, 192]
+      "sizes": [96, 168, 192]
     }
   ]
 }
