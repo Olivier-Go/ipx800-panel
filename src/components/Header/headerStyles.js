@@ -36,7 +36,7 @@ const headerStyles = makeStyles((theme) => ({
   },
   '@keyframes blinker': {
     from: { opacity: 0 },
-    '50%': { opacity: 0.5 },
+    '50%': { opacity: 0.8 },
     to: { opacity: 0 },
   },
 }));

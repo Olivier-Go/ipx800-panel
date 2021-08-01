@@ -1,5 +1,5 @@
 // == Import npm
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { ThemeProvider } from '@material-ui/core/styles';
 
@@ -14,8 +14,12 @@ import appTheme from './appTheme';
 import appStyles from './appStyles';
 
 // == Composant
-const App = ({ userAuth }) => {
+const App = ({ userAuth, fetchAuth }) => {
   const classes = appStyles();
+
+  useEffect(() => {
+    fetchAuth();
+  }, []);
 
   return (
     <ThemeProvider theme={appTheme}>
@@ -35,6 +39,7 @@ const App = ({ userAuth }) => {
 
 App.propTypes = {
   userAuth: PropTypes.bool.isRequired,
+  fetchAuth: PropTypes.func.isRequired,
 };
 
 // == Export

@@ -1,9 +1,11 @@
 import {
   SET_SNACKBAR,
   RESET_SNACKBAR,
+  SET_CONNECTED,
 } from '../actions/home';
 
 const initialState = {
+  device: '',
   // Display SnackBar
   snackbar: false,
   snackbarType: '',
@@ -25,6 +27,12 @@ const homeReducer = (state = initialState, action = {}) => {
         ...state,
         snackbar: false,
         snackbarMessage: '',
+      };
+
+    case SET_CONNECTED:
+      return {
+        ...state,
+        device: action.value,
       };
 
     default: return state;

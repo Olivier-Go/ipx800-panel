@@ -1,5 +1,6 @@
 // == Import npm
-import React from 'react';
+import React, { useEffect } from 'react';
+import PropTypes from 'prop-types';
 
 // == Import components
 import { yellow, red } from '@material-ui/core/colors';
@@ -16,8 +17,12 @@ import Badge from '@material-ui/core/Badge';
 import homeStyles from './homeStyles';
 
 // == Composant
-const Home = () => {
+const Home = ({ fetchConnection }) => {
   const classes = homeStyles();
+
+  useEffect(() => {
+    fetchConnection();
+  }, []);
 
   return (
     <>
@@ -96,6 +101,10 @@ const Home = () => {
       </Grid>
     </>
   );
+};
+
+Home.propTypes = {
+  fetchConnection: PropTypes.func.isRequired,
 };
 
 // == Export

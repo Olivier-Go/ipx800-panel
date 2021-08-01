@@ -1,5 +1,6 @@
 // == Import npm
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 
 // == Import components
 import AppBar from '@material-ui/core/AppBar';
@@ -13,14 +14,14 @@ import Drawer from '@material-ui/core/Drawer';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
-import { green } from '@material-ui/core/colors';
+import { green, red } from '@material-ui/core/colors';
 
 
 // == Import styles
 import headerStyles from './headerStyles';
 
 // == Composant
-const Header = () => {
+const Header = ({ device }) => {
   const classes = headerStyles();
   const [open, setOpen] = useState(false);
 
@@ -47,16 +48,33 @@ const Header = () => {
               </ListItem>
             </List>
           </Drawer>
-          <div className={classes.status}>
-            <FiberManualRecordIcon className={classes.statusIcon} style={{ color: green[500] }} />
-            <Typography align="right" variant="caption">
-              Connecté
-            </Typography>
-          </div>
+          {device ? (
+            <div className={classes.status}>
+              <FiberManualRecordIcon className={classes.statusIcon} style={{ color: green[500] }} />
+              <Typography align="right" variant="caption">
+                { device }
+              </Typography>
+            </div>
+          ) : (
+            <div className={classes.status}>
+              <FiberManualRecordIcon className={classes.statusIcon} style={{ color: red[500] }} />
+              <Typography align="right" variant="caption">
+                hors ligne
+              </Typography>
+            </div>
+          )}
         </Toolbar>
       </AppBar>
     </>
   );
+};
+
+Header.propTypes = {
+  device: PropTypes.string,
+};
+
+Header.defaultProps = {
+  device: '',
 };
 
 // == Export
