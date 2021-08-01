@@ -51,6 +51,7 @@
   "dependencies": {
     "@material-ui/core": "*",
     "@material-ui/icons": "*",
+    "@material-ui/lab": "*",
     "axios": "*",
     "dotenv": "*",
     "prop-types": "*",

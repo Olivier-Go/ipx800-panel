@@ -1,6 +1,6 @@
 // == Import npm
-import React, { useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import React from 'react';
+import PropTypes from 'prop-types';
 import { ThemeProvider } from '@material-ui/core/styles';
 
 // == Import components
@@ -14,29 +14,27 @@ import appTheme from './appTheme';
 import appStyles from './appStyles';
 
 // == Composant
-const App = () => {
+const App = ({ userAuth }) => {
   const classes = appStyles();
-  const { pathname } = useLocation();
-  const auth = pathname !== '/login';
-
-  useEffect(() => {
-
-  }, []);
 
   return (
     <ThemeProvider theme={appTheme}>
       <CssBaseline />
       <Container className={classes.wrapper}>
-        {auth && (
+        {userAuth && (
           <Header />
         )}
         <Pages />
-        {auth && (
+        {userAuth && (
           <Footer />
         )}
       </Container>
     </ThemeProvider>
   );
+};
+
+App.propTypes = {
+  userAuth: PropTypes.bool.isRequired,
 };
 
 // == Export

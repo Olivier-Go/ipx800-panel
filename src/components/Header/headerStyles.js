@@ -14,7 +14,7 @@ const headerStyles = makeStyles((theme) => ({
   menuList: {
     paddingLeft: theme.spacing(5),
     paddingRight: theme.spacing(5),
-    minWidth: '100vw',
+    minWidth: '75vw',
     [theme.breakpoints.up('sm')]: {
       minWidth: '50vw',
     },

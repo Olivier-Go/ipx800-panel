@@ -1,5 +1,6 @@
 // == Import npm
-import React, { useState } from 'react';
+import React, { useEffect } from 'react';
+import PropTypes from 'prop-types';
 
 // == Import components
 import { blueGrey } from '@material-ui/core/colors';
@@ -20,11 +21,19 @@ import IPX800Logo from '../../../assets/favicon.png';
 import loginStyles from './loginStyles';
 
 // == Composant
-const Login = () => {
+const Login = ({
+  password,
+  handlePassword,
+  clearPsswd,
+  checkAuth,
+}) => {
   const classes = loginStyles();
   const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0];
   const pinInputs = [1, 2, 3, 4];
-  const [userInputs, setUserInputs] = useState(0);
+
+  useEffect(() => {
+    checkAuth();
+  });
 
   return (
     <>
@@ -50,7 +59,7 @@ const Login = () => {
               <CardActions>
                 <div className={classes.loginCode}>
                   {pinInputs.map((value) => (
-                    (userInputs >= value) ? (
+                    (password.length >= value) ? (
                       <FiberManualRecordIcon key={value} color="secondary" className={classes.loginDotFull} />
                     ) : (
                       <RadioButtonUncheckedIcon key={value} color="secondary" className={classes.loginDotEmtpy} />
@@ -60,22 +69,29 @@ const Login = () => {
               </CardActions>
             </Card>
             {numbers.map((value) => (
-              <Grid key={value} item xs={4}>
-                <Fab size="large" color="secondary" aria-label="number" onClick={() => setUserInputs(userInputs + 1)}>
+              <Grid key={value} item xs={4} onClick={() => handlePassword(value)}>
+                <Fab size="large" color="secondary" aria-label="number">
                   <Typography variant="h5">
                     {value}
                   </Typography>
                 </Fab>
               </Grid>
             ))}
-            <IconButton aria-label="back" className={classes.loginBack}>
-              <BackspaceIcon style={{ color: blueGrey[300] }} fontSize="large" onClick={() => setUserInputs(userInputs - 1)} />
+            <IconButton aria-label="back" className={classes.loginBack} onClick={clearPsswd}>
+              <BackspaceIcon style={{ color: blueGrey[300] }} fontSize="large" />
             </IconButton>
           </Grid>
         </Grid>
       </Grid>
     </>
   );
+};
+
+Login.propTypes = {
+  password: PropTypes.array.isRequired,
+  handlePassword: PropTypes.func.isRequired,
+  clearPsswd: PropTypes.func.isRequired,
+  checkAuth: PropTypes.func.isRequired,
 };
 
 // == Export

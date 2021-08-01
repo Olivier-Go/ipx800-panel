@@ -6,7 +6,7 @@ const homeStyles = makeStyles((theme) => ({
   },
   homeWrapper: {
     maxWidth: '100%',
-    padding: theme.spacing(2, 1, 5, 1),
+    padding: theme.spacing(4, 1, 5, 1),
     margin: 0,
     justifyContent: 'center',
     alignItems: 'center',
