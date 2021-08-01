@@ -13,7 +13,7 @@ import footerStyles from './footerStyles';
 const Footer = () => {
   const classes = footerStyles();
   return (
-    <Container className={classes.footerWrapper}>
+    <Container maxWidth={false} className={classes.footerWrapper}>
       <Typography variant="caption" color="secondary">
         {'© IPX800 Panel '}
         {new Date().getFullYear()}

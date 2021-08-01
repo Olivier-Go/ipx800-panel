@@ -8,7 +8,6 @@ import {
 const initialState = {
   password: [],
   userAuth: false,
-  redirectTo: '',
 };
 
 const loginReducer = (state = initialState, action = {}) => {
@@ -38,7 +37,6 @@ const loginReducer = (state = initialState, action = {}) => {
       return {
         ...state,
         userAuth: true,
-        redirectTo: '/',
       };
 
     default: return state;

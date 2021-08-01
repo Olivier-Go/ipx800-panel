@@ -7,14 +7,26 @@
   "inject": true,
   "fingerprints": true,
   "theme_color": "#4527A0",
-  "display": "fullscreen",
+  "display": "standalone",
   "start_url": ".",
-  "ios": true,
   "includeDirectory": true,
   "icons": [
     {
       "src": "src/assets/favicon.png",
-      "sizes": [96, 168, 192]
+      "sizes": [96, 128, 192, 256, 384, 512]
+    },
+    {
+      "src": "src/assets/favicon.png",
+      "size": "1024x1024"
+    },
+    {
+      "src": "src/assets/favicon.png",
+      "size": "1024x1024",
+      "purpose": "maskable"
     }
-  ]
+  ],
+  "ios": {
+    "apple-mobile-web-app-title": "IPX800 Panel",
+    "apple-mobile-web-app-status-bar-style": "#4527A0"
+  }
 }

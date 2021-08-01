@@ -19,7 +19,6 @@ const Alert = (props) => (
 );
 
 const Pages = ({
-  redirectTo,
   userAuth,
   snackbar,
   snackbarType,
@@ -35,9 +34,6 @@ const Pages = ({
 
   return (
     <>
-      {redirectTo && (
-        <Redirect to={redirectTo} push />
-      )}
       <Switch>
         <PrivateRoute
           exact
@@ -45,9 +41,13 @@ const Pages = ({
           component={Home}
           isAuthenticated={userAuth}
         />
-        <Route exact path="/login">
-          <Login />
-        </Route>
+        {!userAuth ? (
+          <Route exact path="/login">
+            <Login />
+          </Route>
+        ) : (
+          <Redirect to="/" push />
+        )}
       </Switch>
       <Snackbar
         open={snackbar}
@@ -65,10 +65,6 @@ const Pages = ({
 
 Pages.propTypes = {
   userAuth: PropTypes.bool.isRequired,
-  redirectTo: PropTypes.oneOfType([
-    PropTypes.bool,
-    PropTypes.string,
-  ]).isRequired,
   snackbar: PropTypes.bool.isRequired,
   snackbarType: PropTypes.string.isRequired,
   snackbarMessage: PropTypes.string.isRequired,
