@@ -1,8 +1,10 @@
 // action types
 export const SET_SNACKBAR = 'SET_SNACKBAR';
 export const RESET_SNACKBAR = 'RESET_SNACKBAR';
-export const FETCH_CONNECTION = 'FETCH_CONNECTION';
-export const SET_CONNECTED = 'SET_CONNECTED';
+export const FETCH_STATUS = 'FETCH_STATUS';
+export const FETCH_OUTPUTS = 'FETCH_OUTPUTS';
+export const SET_STATUS = 'SET_STATUS';
+export const SET_OUTPUTS_DEFAULT = 'SET_OUTPUTS_DEFAULT';
 
 // action creators
 export const setSnackbar = (severity, message) => ({
@@ -15,11 +17,20 @@ export const resetSnackbar = () => ({
   type: RESET_SNACKBAR,
 });
 
-export const fetchConnection = () => ({
-  type: FETCH_CONNECTION,
+export const fetchStatus = () => ({
+  type: FETCH_STATUS,
 });
 
-export const setConnected = (value) => ({
-  type: SET_CONNECTED,
+export const fetchOutputs = () => ({
+  type: FETCH_OUTPUTS,
+});
+
+export const setStatus = (value) => ({
+  type: SET_STATUS,
+  value,
+});
+
+export const setOutputsDefault = (value) => ({
+  type: SET_OUTPUTS_DEFAULT,
   value,
 });

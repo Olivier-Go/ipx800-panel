@@ -1,13 +1,18 @@
 import { connect } from 'react-redux';
-import { fetchConnection } from 'src/actions/home';
+import { fetchStatus, fetchOutputs } from 'src/actions/home';
 
 import Home from 'src/components/Pages/Home';
 
-const mapStateToProps = () => ({});
+const mapStateToProps = (state) => ({
+  outputs: state.home.outputs,
+});
 
 const mapDispatchToProps = (dispatch) => ({
-  fetchConnection: () => {
-    dispatch(fetchConnection());
+  fetchStatus: () => {
+    dispatch(fetchStatus());
+  },
+  fetchOutputs: () => {
+    dispatch(fetchOutputs());
   },
 });
 

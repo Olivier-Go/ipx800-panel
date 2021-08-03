@@ -12,16 +12,13 @@ import CloseIcon from '@material-ui/icons/Close';
 import MenuIcon from '@material-ui/icons/Menu';
 import Drawer from '@material-ui/core/Drawer';
 import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
-import { green, red } from '@material-ui/core/colors';
-
 
 // == Import styles
 import headerStyles from './headerStyles';
 
 // == Composant
-const Header = ({ device }) => {
+const Header = ({ status }) => {
   const classes = headerStyles();
   const [open, setOpen] = useState(false);
 
@@ -42,22 +39,28 @@ const Header = ({ device }) => {
                 <CloseIcon />
               </IconButton>
             </div>
-            <List className={classes.menuList}>
-              <ListItem button key={1}>
-                <ListItemText primary="Paramètres" align="center" />
-              </ListItem>
-            </List>
+            <div className={classes.menuList}>
+              <Typography align="left" variant="h6" gutterBottom>
+                Informations sur l'appareil
+              </Typography>
+              <List>
+                <ListItemText key={1} primary={`Version : ${status.version}`} align="left" />
+                <ListItemText key={2} primary={`MAC : ${status.config_mac}`} align="left" />
+                <ListItemText key={3} primary={`Port : ${status.http_port}`} align="left" />
+                <ListItemText key={4} primary={`Last Update : ${status.day} ${status.time0}`} align="left" />
+              </List>
+            </div>
           </Drawer>
-          {device ? (
+          {status ? (
             <div className={classes.status}>
-              <FiberManualRecordIcon className={classes.statusIcon} style={{ color: green[500] }} />
+              <FiberManualRecordIcon className={classes.statusIconOnline} />
               <Typography align="right" variant="caption">
-                { device }
+                { status.config_hostname } connecté
               </Typography>
             </div>
           ) : (
             <div className={classes.status}>
-              <FiberManualRecordIcon className={classes.statusIcon} style={{ color: red[500] }} />
+              <FiberManualRecordIcon className={classes.statusIconOffline} />
               <Typography align="right" variant="caption">
                 hors ligne
               </Typography>
@@ -70,11 +73,7 @@ const Header = ({ device }) => {
 };
 
 Header.propTypes = {
-  device: PropTypes.string,
-};
-
-Header.defaultProps = {
-  device: '',
+  status: PropTypes.object.isRequired,
 };
 
 // == Export

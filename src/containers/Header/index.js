@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import Header from 'src/components/Header';
 
 const mapStateToProps = (state) => ({
-  device: state.home.device,
+  status: state.home.status,
 });
 
 const mapDispatchToProps = () => ({});

@@ -1,11 +1,14 @@
 import {
   SET_SNACKBAR,
   RESET_SNACKBAR,
-  SET_CONNECTED,
+  SET_STATUS,
+  SET_OUTPUTS_DEFAULT,
 } from '../actions/home';
 
 const initialState = {
-  device: '',
+  // device
+  status: {},
+  outputs: {},
   // Display SnackBar
   snackbar: false,
   snackbarType: '',
@@ -29,10 +32,16 @@ const homeReducer = (state = initialState, action = {}) => {
         snackbarMessage: '',
       };
 
-    case SET_CONNECTED:
+    case SET_STATUS:
       return {
         ...state,
-        device: action.value,
+        status: action.value,
+      };
+
+    case SET_OUTPUTS_DEFAULT:
+      return {
+        ...state,
+        outputs: action.value,
       };
 
     default: return state;

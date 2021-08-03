@@ -17,11 +17,12 @@ import Badge from '@material-ui/core/Badge';
 import homeStyles from './homeStyles';
 
 // == Composant
-const Home = ({ fetchConnection }) => {
+const Home = ({ fetchStatus, fetchOutputs, outputs }) => {
   const classes = homeStyles();
 
   useEffect(() => {
-    fetchConnection();
+    fetchStatus();
+    fetchOutputs();
   }, []);
 
   return (
@@ -104,7 +105,9 @@ const Home = ({ fetchConnection }) => {
 };
 
 Home.propTypes = {
-  fetchConnection: PropTypes.func.isRequired,
+  fetchStatus: PropTypes.func.isRequired,
+  fetchOutputs: PropTypes.func.isRequired,
+  outputs: PropTypes.object.isRequired,
 };
 
 // == Export

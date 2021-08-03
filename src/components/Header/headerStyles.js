@@ -1,4 +1,5 @@
 import { makeStyles } from '@material-ui/core/styles';
+import { green, red } from '@material-ui/core/colors';
 
 const headerStyles = makeStyles((theme) => ({
   menuBurger: {
@@ -12,8 +13,7 @@ const headerStyles = makeStyles((theme) => ({
     marginBottom: theme.spacing(0),
   },
   menuList: {
-    paddingLeft: theme.spacing(5),
-    paddingRight: theme.spacing(5),
+    padding: theme.spacing(5),
     minWidth: '75vw',
     [theme.breakpoints.up('sm')]: {
       minWidth: '50vw',
@@ -27,8 +27,13 @@ const headerStyles = makeStyles((theme) => ({
     alignItems: 'center',
     marginLeft: 'auto',
   },
-  statusIcon: {
+  statusIconOffline: {
     marginRight: theme.spacing(0.5),
+    color: red[500],
+  },
+  statusIconOnline: {
+    marginRight: theme.spacing(0.5),
+    color: green[500],
     animationName: '$blinker',
     animationDuration: '2s',
     animationTimingFunction: 'ease-in-out;',
