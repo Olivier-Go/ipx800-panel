@@ -10,6 +10,8 @@ import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import MenuIcon from '@material-ui/icons/Menu';
+import CheckCircleIcon from '@material-ui/icons/CheckCircle';
+import ErrorIcon from '@material-ui/icons/Error';
 import Drawer from '@material-ui/core/Drawer';
 import List from '@material-ui/core/List';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -40,18 +42,30 @@ const Header = ({ status }) => {
               </IconButton>
             </div>
             <div className={classes.menuList}>
-              <Typography align="left" variant="h6" gutterBottom>
+              <Typography align="center" variant="h6" gutterBottom>
                 Informations sur l'appareil
               </Typography>
-              <List>
-                <ListItemText key={1} primary={`Version : ${status.version}`} align="left" />
-                <ListItemText key={2} primary={`MAC : ${status.config_mac}`} align="left" />
-                <ListItemText key={3} primary={`Port : ${status.http_port}`} align="left" />
-                <ListItemText key={4} primary={`Last Update : ${status.day} ${status.time0}`} align="left" />
-              </List>
+              {Object.keys(status).length ? (
+                <div className={classes.menuListItems}>
+                  <CheckCircleIcon fontSize="large" className={classes.menuListIconOn} />
+                  <List>
+                    <ListItemText key={1} primary={`Version : ${status.version}`} align="left" />
+                    <ListItemText key={2} primary={`MAC : ${status.config_mac}`} align="left" />
+                    <ListItemText key={3} primary={`Port : ${status.http_port}`} align="left" />
+                    <ListItemText key={4} primary={`Last Update : ${status.day} ${status.time0}`} align="left" />
+                  </List>
+                </div>
+              ) : (
+                <div className={classes.menuListItems}>
+                  <ErrorIcon fontSize="large" className={classes.menuListIconOff} />
+                  <Typography variant="subtitle1" gutterBottom>
+                    Echec de la connexion
+                  </Typography>
+                </div>
+              )}
             </div>
           </Drawer>
-          {status ? (
+          {Object.keys(status).length ? (
             <div className={classes.status}>
               <FiberManualRecordIcon className={classes.statusIconOnline} />
               <Typography align="right" variant="caption">

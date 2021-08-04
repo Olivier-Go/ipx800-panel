@@ -6,18 +6,31 @@ import PropTypes from 'prop-types';
 import { yellow, red } from '@material-ui/core/colors';
 import EmojiObjectsIcon from '@material-ui/icons/EmojiObjects';
 import NotificationsActiveIcon from '@material-ui/icons/NotificationsActive';
+import NotificationsNoneIcon from '@material-ui/icons/NotificationsNone';
 import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import Zoom from '@material-ui/core/Zoom';
 import Badge from '@material-ui/core/Badge';
+import { withStyles } from '@material-ui/core/styles';
 
 // == Import styles
 import homeStyles from './homeStyles';
 
+const StyledBadge = withStyles({
+  colorSecondary: {
+    backgroundColor: yellow[700],
+  },
+})(Badge);
+
 // == Composant
-const Home = ({ fetchStatus, fetchOutputs, outputs }) => {
+const Home = ({
+  fetchStatus,
+  fetchOutputs,
+  outputs,
+  setOutput,
+}) => {
   const classes = homeStyles();
 
   useEffect(() => {
@@ -31,47 +44,41 @@ const Home = ({ fetchStatus, fetchOutputs, outputs }) => {
         <Grid item xs={12}>
           <Zoom in>
             <Grid container className={classes.homeWrapper} spacing={3}>
-              {/* {[0, 1, 2].map((value) => (
-                <Grid key={value} item>
+              <Grid item onClick={() => setOutput(0)}>
+                <StyledBadge color="secondary" overlap="circular" invisible={!outputs.OUT1} variant="dot">
                   <Paper className={classes.homeBtnWrapper} elevation={5}>
-                    <Button classes={{ root: classes.homeBtn, label: classes.homeBtnLabel }} size="large">
-                      <EmojiObjectsIcon className={classes.homeIcon} color="disabled" />
-                      <Typography color="textSecondary" variant="caption">
+                    <Button disableElevation classes={{ root: classes.homeBtn, label: classes.homeBtnLabel }} size="large">
+                      <EmojiObjectsIcon className={`${!outputs.OUT1 ? classes.homeIconDisabled : classes.homeIconEnabled}`} />
+                      <Typography color="textPrimary" variant="caption">
+                        Pré
+                      </Typography>
+                    </Button>
+                  </Paper>
+                </StyledBadge>
+              </Grid>
+              <Grid item onClick={() => setOutput(1)}>
+                <StyledBadge color="secondary" overlap="circular" invisible={!outputs.OUT2} variant="dot">
+                  <Paper className={classes.homeBtnWrapper} elevation={5}>
+                    <Button disableElevation classes={{ root: classes.homeBtn, label: classes.homeBtnLabel }} size="large">
+                      <EmojiObjectsIcon className={`${!outputs.OUT2 ? classes.homeIconDisabled : classes.homeIconEnabled}`} />
+                      <Typography color="textPrimary" variant="caption">
+                        Piscine
+                      </Typography>
+                    </Button>
+                  </Paper>
+                </StyledBadge>
+              </Grid>
+              <Grid item onClick={() => setOutput(2)}>
+                <StyledBadge color="secondary" overlap="circular" invisible={!outputs.OUT3} variant="dot">
+                  <Paper className={classes.homeBtnWrapper} elevation={5}>
+                    <Button disableElevation classes={{ root: classes.homeBtn, label: classes.homeBtnLabel }} size="large">
+                      <EmojiObjectsIcon className={`${!outputs.OUT3 ? classes.homeIconDisabled : classes.homeIconEnabled}`} />
+                      <Typography color="textPrimary" variant="caption">
                         Cours
                       </Typography>
                     </Button>
                   </Paper>
-                </Grid>
-              ))} */}
-              <Grid item>
-                <Paper className={classes.homeBtnWrapper} elevation={5}>
-                  <Button disableElevation classes={{ root: classes.homeBtn, label: classes.homeBtnLabel }} size="large">
-                    <EmojiObjectsIcon className={classes.homeIcon} color="disabled" />
-                    <Typography color="textSecondary" variant="caption">
-                      Pré
-                    </Typography>
-                  </Button>
-                </Paper>
-              </Grid>
-              <Grid item>
-                <Paper className={classes.homeBtnWrapper} elevation={5}>
-                  <Button disableElevation classes={{ root: classes.homeBtn, label: classes.homeBtnLabel }} size="large">
-                    <EmojiObjectsIcon className={classes.homeIcon} style={{ color: yellow[700] }} />
-                    <Typography color="textPrimary" variant="caption">
-                      Piscine
-                    </Typography>
-                  </Button>
-                </Paper>
-              </Grid>
-              <Grid item>
-                <Paper className={classes.homeBtnWrapper} elevation={5}>
-                  <Button disableElevation classes={{ root: classes.homeBtn, label: classes.homeBtnLabel }} size="large">
-                    <EmojiObjectsIcon className={classes.homeIcon} color="disabled" />
-                    <Typography color="textSecondary" variant="caption">
-                      Cours
-                    </Typography>
-                  </Button>
-                </Paper>
+                </StyledBadge>
               </Grid>
             </Grid>
           </Zoom>
@@ -79,22 +86,30 @@ const Home = ({ fetchStatus, fetchOutputs, outputs }) => {
             <Grid container className={classes.homeWrapper} spacing={3}>
               <Button
                 className={classes.homeAlarmBtn}
-                style={{ backgroundColor: red[800] }}
-                startIcon={<NotificationsActiveIcon className={classes.homeAlarmIcon} />}
+                style={{ backgroundColor: red[`${!outputs.OUT4 ? 500 : 800}`] }}
+                startIcon={
+                  outputs.OUT4 === 1 ? (
+                    <NotificationsActiveIcon className={classes.homeAlarmIcon} />
+                  ) : (
+                    <NotificationsNoneIcon className={classes.homeAlarmIcon} />
+                  )
+                }
+                onClick={() => setOutput(3)}
               >
                 <Typography variant="subtitle2" color="secondary">
-                  Alarme activée
+                  Alarme {outputs.OUT4 ? ('activée') : ('désactivée')}
                 </Typography>
-                <Badge
-                  color="primary"
-                  badgeContent={3}
-                  max={9}
-                  className={classes.homeAlarmBadge}
-                >
-                  <Typography color="secondary" className={classes.homeAlarmBadgeTxt}>
-                    Déclenchements
-                  </Typography>
-                </Badge>
+                {outputs.OUT4 === 1 && (
+                  <Badge
+                    color="primary"
+                    badgeContent="on"
+                    className={classes.homeAlarmBadge}
+                  >
+                    <Typography color="secondary" className={classes.homeAlarmBadgeTxt}>
+                      Notifications
+                    </Typography>
+                  </Badge>
+                )}
               </Button>
             </Grid>
           </Zoom>
@@ -108,6 +123,7 @@ Home.propTypes = {
   fetchStatus: PropTypes.func.isRequired,
   fetchOutputs: PropTypes.func.isRequired,
   outputs: PropTypes.object.isRequired,
+  setOutput: PropTypes.func.isRequired,
 };
 
 // == Export

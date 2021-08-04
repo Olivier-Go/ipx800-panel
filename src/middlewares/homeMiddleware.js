@@ -3,6 +3,8 @@ import { decryptAES, xmlToJson } from 'src/utils/tools';
 import {
   FETCH_STATUS,
   FETCH_OUTPUTS,
+  SET_OUTPUT,
+  fetchOutputs,
   setSnackbar,
   setStatus,
   setOutputsDefault,
@@ -48,6 +50,30 @@ const HomeMiddleware = (store) => (next) => (action) => {
       })
         .then((response) => {
           store.dispatch(setOutputsDefault(response.data));
+        })
+        .catch((error) => {
+          // eslint-disable-next-line no-console
+          console.warn(error);
+          store.dispatch(setSnackbar('error', 'Echec de la connexion à l\'appareil'));
+        })
+        .finally(() => {
+        });
+
+      next(action);
+      break;
+    }
+
+    case SET_OUTPUT: {
+      axios({
+        method: 'get',
+        url: `${process.env.API_URL}/leds.cgi?led=${action.value}`,
+        auth: {
+          username: auth.split(':')[0],
+          password: auth.split(':')[1],
+        },
+      })
+        .then(() => {
+          store.dispatch(fetchOutputs());
         })
         .catch((error) => {
           // eslint-disable-next-line no-console

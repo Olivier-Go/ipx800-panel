@@ -1,4 +1,5 @@
 import { makeStyles } from '@material-ui/core/styles';
+import { yellow, grey } from '@material-ui/core/colors';
 
 const homeStyles = makeStyles((theme) => ({
   homeContainer: {
@@ -24,9 +25,15 @@ const homeStyles = makeStyles((theme) => ({
   homeBtnLabel: {
     flexDirection: 'column',
   },
-  homeIcon: {
-    fontSize: '3.5em',
+  homeIconEnabled: {
+    fontSize: '3.8em',
     display: 'inline-block',
+    color: yellow[700],
+  },
+  homeIconDisabled: {
+    fontSize: '3.8em',
+    display: 'inline-block',
+    color: grey[500],
   },
   homeAlarmBtn: {
     color: theme.palette.secondary.main,
@@ -42,8 +49,8 @@ const homeStyles = makeStyles((theme) => ({
   homeAlarmBadge: {
     position: 'absolute',
     bottom: 5,
-    right: 20,
-    width: '5.9rem',
+    right: 22,
+    width: '5rem',
   },
   homeAlarmBadgeTxt: {
     fontSize: '0.8em',

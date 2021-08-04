@@ -13,7 +13,7 @@ const headerStyles = makeStyles((theme) => ({
     marginBottom: theme.spacing(0),
   },
   menuList: {
-    padding: theme.spacing(5),
+    padding: theme.spacing(5, 4),
     minWidth: '75vw',
     [theme.breakpoints.up('sm')]: {
       minWidth: '50vw',
@@ -43,6 +43,18 @@ const headerStyles = makeStyles((theme) => ({
     from: { opacity: 0 },
     '50%': { opacity: 0.8 },
     to: { opacity: 0 },
+  },
+  menuListItems: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    margin: theme.spacing(3, 0),
+  },
+  menuListIconOn: {
+    color: green[500],
+  },
+  menuListIconOff: {
+    color: red[500],
   },
 }));
 

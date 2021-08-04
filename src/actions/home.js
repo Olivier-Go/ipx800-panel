@@ -5,6 +5,7 @@ export const FETCH_STATUS = 'FETCH_STATUS';
 export const FETCH_OUTPUTS = 'FETCH_OUTPUTS';
 export const SET_STATUS = 'SET_STATUS';
 export const SET_OUTPUTS_DEFAULT = 'SET_OUTPUTS_DEFAULT';
+export const SET_OUTPUT = 'SET_OUTPUT';
 
 // action creators
 export const setSnackbar = (severity, message) => ({
@@ -32,5 +33,10 @@ export const setStatus = (value) => ({
 
 export const setOutputsDefault = (value) => ({
   type: SET_OUTPUTS_DEFAULT,
+  value,
+});
+
+export const setOutput = (value) => ({
+  type: SET_OUTPUT,
   value,
 });

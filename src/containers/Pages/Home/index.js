@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { fetchStatus, fetchOutputs } from 'src/actions/home';
+import { fetchStatus, fetchOutputs, setOutput } from 'src/actions/home';
 
 import Home from 'src/components/Pages/Home';
 
@@ -13,6 +13,9 @@ const mapDispatchToProps = (dispatch) => ({
   },
   fetchOutputs: () => {
     dispatch(fetchOutputs());
+  },
+  setOutput: (value) => {
+    dispatch(setOutput(value));
   },
 });
 
