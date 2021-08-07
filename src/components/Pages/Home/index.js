@@ -30,6 +30,7 @@ const Home = ({
   fetchOutputs,
   outputs,
   setOutput,
+  notificationsLabel,
 }) => {
   const classes = homeStyles();
 
@@ -99,17 +100,15 @@ const Home = ({
                 <Typography variant="subtitle2" color="secondary">
                   Alarme {outputs.OUT4 ? ('activée') : ('désactivée')}
                 </Typography>
-                {outputs.OUT4 === 1 && (
-                  <Badge
-                    color="primary"
-                    badgeContent="on"
-                    className={classes.homeAlarmBadge}
-                  >
-                    <Typography color="secondary" className={classes.homeAlarmBadgeTxt}>
-                      Notifications
-                    </Typography>
-                  </Badge>
-                )}
+                <Badge
+                  color="primary"
+                  badgeContent={`${notificationsLabel ? 'on' : 'off'}`}
+                  className={classes.homeAlarmBadge}
+                >
+                  <Typography color="secondary" className={classes.homeAlarmBadgeTxt}>
+                    Notifications
+                  </Typography>
+                </Badge>
               </Button>
             </Grid>
           </Zoom>
@@ -124,6 +123,7 @@ Home.propTypes = {
   fetchOutputs: PropTypes.func.isRequired,
   outputs: PropTypes.object.isRequired,
   setOutput: PropTypes.func.isRequired,
+  notificationsLabel: PropTypes.bool.isRequired,
 };
 
 // == Export

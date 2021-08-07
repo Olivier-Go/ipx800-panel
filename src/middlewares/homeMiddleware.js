@@ -9,6 +9,7 @@ import {
   setStatus,
   setOutputsDefault,
 } from '../actions/home';
+import { synoFetchInfos } from '../actions/syno';
 
 const auth = decryptAES(process.env.API_CIPHERTEXT, process.env.API_KEY);
 
@@ -65,7 +66,7 @@ const HomeMiddleware = (store) => (next) => (action) => {
 
     case SET_OUTPUT: {
       axios({
-        method: 'get',
+        method: 'post',
         url: `${process.env.API_URL}/leds.cgi?led=${action.value}`,
         auth: {
           username: auth.split(':')[0],
@@ -74,6 +75,7 @@ const HomeMiddleware = (store) => (next) => (action) => {
       })
         .then(() => {
           store.dispatch(fetchOutputs());
+          store.dispatch(synoFetchInfos());
         })
         .catch((error) => {
           // eslint-disable-next-line no-console

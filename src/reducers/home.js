@@ -3,6 +3,7 @@ import {
   RESET_SNACKBAR,
   SET_STATUS,
   SET_OUTPUTS_DEFAULT,
+  SET_NOTIFICATIONS_LABEL,
 } from '../actions/home';
 
 const initialState = {
@@ -13,6 +14,8 @@ const initialState = {
   snackbar: false,
   snackbarType: '',
   snackbarMessage: '',
+  // Alarm btn
+  notificationsLabel: false,
 };
 
 const homeReducer = (state = initialState, action = {}) => {
@@ -42,6 +45,12 @@ const homeReducer = (state = initialState, action = {}) => {
       return {
         ...state,
         outputs: action.value,
+      };
+
+    case SET_NOTIFICATIONS_LABEL:
+      return {
+        ...state,
+        notificationsLabel: action.value,
       };
 
     default: return state;

@@ -47,13 +47,14 @@ const homeStyles = makeStyles((theme) => ({
     width: 50,
   },
   homeAlarmBadge: {
+    fontSize: '6px',
     position: 'absolute',
     bottom: 5,
-    right: 22,
-    width: '5rem',
+    right: 24,
+    width: '5.3rem',
   },
   homeAlarmBadgeTxt: {
-    fontSize: '0.8em',
+    fontSize: '12px',
     textTransform: 'capitalize',
   },
 }));
