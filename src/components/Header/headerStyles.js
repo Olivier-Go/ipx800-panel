@@ -40,8 +40,8 @@ const headerStyles = makeStyles((theme) => ({
     color: theme.palette.secondary.dark,
   },
   statusNotificationIcon: {
-    marginRight: theme.spacing(1),
-    marginLeft: theme.spacing(1.5),
+    marginRight: theme.spacing(0),
+    marginLeft: theme.spacing(2.5),
     color: theme.palette.secondary.dark,
   },
   statusIconOffline: {

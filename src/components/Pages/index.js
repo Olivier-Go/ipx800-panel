@@ -51,7 +51,7 @@ const Pages = ({
       </Switch>
       <Snackbar
         open={snackbar}
-        autoHideDuration={2500}
+        autoHideDuration={3500}
         anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
         onClose={handleClose}
       >

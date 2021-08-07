@@ -69,8 +69,8 @@ const homeReducer = (state = initialState, action = {}) => {
     case SET_ALARM_LOADER_PROGRESS:
       return {
         ...state,
-        alarmLoader: action.value < 100,
         alarmLoaderProgress: action.value,
+        alarmLoader: action.value < 100,
       };
 
     default: return state;

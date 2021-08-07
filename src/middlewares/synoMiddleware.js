@@ -43,7 +43,7 @@ const SynoMiddleware = (store) => (next) => (action) => {
             const { path } = response.data.data['SYNO.SurveillanceStation.Camera'];
             store.dispatch(setSynoInfos(path));
             store.dispatch(fetchSynoAuthentication(action.setData));
-            store.dispatch(setAlarmLoaderProgress(action.setData ? 20 : 100));
+            store.dispatch(setAlarmLoaderProgress(action.setData ? 40 : 100));
           }
         })
         .catch((error) => {
@@ -73,7 +73,7 @@ const SynoMiddleware = (store) => (next) => (action) => {
             const { sid } = response.data.data;
             store.dispatch(setSynoAuthentication(sid));
             store.dispatch(fetchSynoPushDevices(action.setData));
-            store.dispatch(setAlarmLoaderProgress(action.setData ? 30 : 100));
+            store.dispatch(setAlarmLoaderProgress(action.setData ? 50 : 100));
           }
         })
         .catch((error) => {
@@ -108,7 +108,7 @@ const SynoMiddleware = (store) => (next) => (action) => {
             else if (action.setData) {
               store.dispatch(setSynoPushDevices(pushDevices));
               store.dispatch(setSynoNotificationFilters());
-              store.dispatch(setAlarmLoaderProgress(50));
+              store.dispatch(setAlarmLoaderProgress(70));
             }
             else {
               store.dispatch(fetchSynoNotificationFilters());
@@ -195,9 +195,9 @@ const SynoMiddleware = (store) => (next) => (action) => {
             .then((response) => {
               if (response.data.success) {
                 pushDevices.map((device) => {
+                  store.dispatch(setAlarmLoaderProgress(90));
                   store.dispatch(sendSynoPushNotification('Notifications d\'alarme désactivées depuis IPX800-Panel'));
                   store.dispatch(setSnackbar('info', `${device.deviceName} : Notifications désactivées`));
-                  store.dispatch(setAlarmLoaderProgress(70));
                   return false;
                 });
                 store.dispatch(setNotificationsStatus(false));
@@ -221,9 +221,9 @@ const SynoMiddleware = (store) => (next) => (action) => {
             .then((response) => {
               if (response.data.success) {
                 pushDevices.map((device) => {
+                  store.dispatch(setAlarmLoaderProgress(90));
                   store.dispatch(sendSynoPushNotification('Notifications d\'alarme activées depuis IPX800-Panel'));
                   store.dispatch(setSnackbar('success', `${device.deviceName} : Notifications activées`));
-                  store.dispatch(setAlarmLoaderProgress(70));
                   return false;
                 });
                 store.dispatch(setNotificationsStatus(true));
@@ -256,14 +256,13 @@ const SynoMiddleware = (store) => (next) => (action) => {
       })
         .then(() => {
           store.dispatch(fetchSynoLougout());
-          store.dispatch(setAlarmLoaderProgress(90));
         })
         .catch((error) => {
           // eslint-disable-next-line no-console
           console.warn(error);
-          store.dispatch(setAlarmLoaderProgress(100));
         })
         .finally(() => {
+          store.dispatch(setAlarmLoaderProgress(100));
         });
 
       next(action);
@@ -286,7 +285,6 @@ const SynoMiddleware = (store) => (next) => (action) => {
           store.dispatch(setSnackbar('error', 'Erreur déconnexion API Surveillance Station'));
         })
         .finally(() => {
-          store.dispatch(setAlarmLoaderProgress(100));
         });
 
       next(action);

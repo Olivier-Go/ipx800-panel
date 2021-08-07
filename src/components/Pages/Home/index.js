@@ -19,6 +19,7 @@ import Grid from '@material-ui/core/Grid';
 import Zoom from '@material-ui/core/Zoom';
 import Badge from '@material-ui/core/Badge';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import Box from '@material-ui/core/Box';
 import { withStyles } from '@material-ui/core/styles';
 
 // == Import styles
@@ -29,6 +30,30 @@ const StyledBadge = withStyles({
     backgroundColor: yellow[700],
   },
 })(Badge);
+
+const CircularProgressWithLabel = (props) => {
+  const classes = homeStyles();
+  const { value } = props;
+  return (
+    <Box position="relative" display="inline-flex">
+      <CircularProgress variant="determinate" {...props} />
+      <Box
+        top={0}
+        left={0}
+        bottom={0}
+        right={0}
+        position="absolute"
+        display="flex"
+        alignItems="center"
+        justifyContent="center"
+      >
+        <Typography variant="caption" component="div" className={classes.homeAlarmloaderProgress}>
+          {`${value}%`}
+        </Typography>
+      </Box>
+    </Box>
+  );
+};
 
 // == Composant
 const Home = ({
@@ -41,7 +66,7 @@ const Home = ({
 }) => {
   const classes = homeStyles();
 
-  let alarmBtnColor = grey[500];
+  let alarmBtnColor = grey[600];
   if (!alarmLoader) {
     alarmBtnColor = !outputs.OUT4 ? red[500] : green[500];
   }
@@ -113,7 +138,7 @@ const Home = ({
                 disabled={alarmLoader}
               >
                 {alarmLoader ? (
-                  <CircularProgress color="secondary" variant="determinate" thickness={5} value={alarmLoaderProgress} />
+                  <CircularProgressWithLabel color="secondary" thickness={5} value={alarmLoaderProgress} />
                 ) : (
                   <Typography variant="subtitle2" color="secondary">
                     Alarme {outputs.OUT4 ? ('activée') : ('désactivée')}
@@ -135,6 +160,10 @@ Home.propTypes = {
   setOutput: PropTypes.func.isRequired,
   alarmLoader: PropTypes.bool.isRequired,
   alarmLoaderProgress: PropTypes.number.isRequired,
+};
+
+CircularProgressWithLabel.propTypes = {
+  value: PropTypes.number.isRequired,
 };
 
 // == Export

@@ -46,6 +46,9 @@ const homeStyles = makeStyles((theme) => ({
     height: 50,
     width: 50,
   },
+  homeAlarmloaderProgress: {
+    color: theme.palette.secondary.main,
+  },
 }));
 
 export default homeStyles;
