@@ -7,7 +7,7 @@ import {
 const initialState = {
   path: '',
   sid: '',
-  pushDevices: {},
+  pushDevices: [],
 };
 
 const synoReducer = (state = initialState, action = {}) => {

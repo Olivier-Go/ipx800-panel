@@ -13,7 +13,7 @@ const headerStyles = makeStyles((theme) => ({
     marginBottom: theme.spacing(0),
   },
   menuList: {
-    padding: theme.spacing(5, 4),
+    padding: theme.spacing(3, 4),
     minWidth: '75vw',
     [theme.breakpoints.up('sm')]: {
       minWidth: '50vw',
@@ -72,13 +72,30 @@ const headerStyles = makeStyles((theme) => ({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    margin: theme.spacing(3, 0),
+    margin: theme.spacing(2, 1),
+  },
+  menuListDevice: {
+    display: 'flex',
+    justifyContent: 'column',
+    alignItems: 'center',
+    marginBottom: theme.spacing(1),
+  },
+  menuListPushDevices: {
+    display: 'flex',
+    alignItems: 'center',
+    width: '100%',
   },
   menuListIconOn: {
     color: green[500],
+    marginRight: theme.spacing(1),
   },
   menuListIconOff: {
     color: red[500],
+  },
+  menuListDivider: {
+    width: '100%',
+    height: '2px',
+    margin: theme.spacing(2, 0, 3, 0),
   },
 }));
 

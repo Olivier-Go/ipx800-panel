@@ -18,6 +18,8 @@ import ErrorIcon from '@material-ui/icons/Error';
 import Drawer from '@material-ui/core/Drawer';
 import List from '@material-ui/core/List';
 import ListItemText from '@material-ui/core/ListItemText';
+import Divider from '@material-ui/core/Divider';
+import PhoneIphoneIcon from '@material-ui/icons/PhoneIphone';
 
 // == Import styles
 import headerStyles from './headerStyles';
@@ -29,6 +31,7 @@ const Header = ({
   notificationsStatus,
   notificationsStatusLoader,
   fetchSynoNotificationFilters,
+  pushDevices,
 }) => {
   const classes = headerStyles();
   const [open, setOpen] = useState(false);
@@ -55,12 +58,14 @@ const Header = ({
               </IconButton>
             </div>
             <div className={classes.menuList}>
-              <Typography align="center" variant="h6" gutterBottom>
-                Informations sur l'appareil
-              </Typography>
               {Object.keys(status).length ? (
                 <div className={classes.menuListItems}>
-                  <CheckCircleIcon fontSize="large" className={classes.menuListIconOn} />
+                  <div className={classes.menuListDevice}>
+                    <CheckCircleIcon fontSize="large" className={classes.menuListIconOn} />
+                    <Typography align="center" variant="h6">
+                      {status.config_hostname}
+                    </Typography>
+                  </div>
                   <List>
                     <ListItemText key={1} primary={`Version : ${status.version}`} align="left" />
                     <ListItemText key={2} primary={`MAC : ${status.config_mac}`} align="left" />
@@ -72,8 +77,29 @@ const Header = ({
                 <div className={classes.menuListItems}>
                   <ErrorIcon fontSize="large" className={classes.menuListIconOff} />
                   <Typography variant="subtitle1" gutterBottom>
-                    Echec de la connexion
+                    Hors Ligne
                   </Typography>
+                </div>
+              )}
+              {Object.keys(pushDevices).length > 0 && (
+                <div className={classes.menuListItems}>
+                  <Divider className={classes.menuListDivider} />
+                  <Typography align="center" variant="h6" gutterBottom>
+                    Notifications Push
+                  </Typography>
+                  <List>
+                    {pushDevices.map((device, index) => (
+                      <div className={classes.menuListPushDevices}>
+                        <PhoneIphoneIcon fontSize="large" />
+                        <ListItemText
+                          // eslint-disable-next-line react/no-array-index-key
+                          key={index}
+                          primary={device.deviceName}
+                          align="left"
+                        />
+                      </div>
+                    ))}
+                  </List>
                 </div>
               )}
             </div>
@@ -124,6 +150,7 @@ Header.propTypes = {
   notificationsStatus: PropTypes.bool.isRequired,
   notificationsStatusLoader: PropTypes.bool.isRequired,
   fetchSynoNotificationFilters: PropTypes.func.isRequired,
+  pushDevices: PropTypes.array.isRequired,
 };
 
 // == Export

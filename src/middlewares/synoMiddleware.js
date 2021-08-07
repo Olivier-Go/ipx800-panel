@@ -105,12 +105,12 @@ const SynoMiddleware = (store) => (next) => (action) => {
               store.dispatch(setSnackbar('error', 'Le Service Push DSCAM n\'est activé sur aucun téléphone'));
               store.dispatch(setAlarmLoaderProgress(100));
             }
-            else if (action.setData) {
-              store.dispatch(setSynoPushDevices(pushDevices));
-              store.dispatch(setSynoNotificationFilters());
-              store.dispatch(setAlarmLoaderProgress(70));
-            }
             else {
+              if (action.setData) {
+                store.dispatch(setSynoNotificationFilters());
+                store.dispatch(setAlarmLoaderProgress(70));
+              }
+              store.dispatch(setSynoPushDevices(pushDevices));
               store.dispatch(fetchSynoNotificationFilters());
             }
           }

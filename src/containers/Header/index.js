@@ -8,6 +8,7 @@ const mapStateToProps = (state) => ({
   iconStatus: state.home.iconStatus,
   notificationsStatus: state.home.notificationsStatus,
   notificationsStatusLoader: state.home.notificationsStatusLoader,
+  pushDevices: state.syno.pushDevices,
 });
 
 const mapDispatchToProps = (dispatch) => ({
