@@ -5,7 +5,6 @@ import Home from 'src/components/Pages/Home';
 
 const mapStateToProps = (state) => ({
   outputs: state.home.outputs,
-  notificationsLabel: state.home.notificationsLabel,
 });
 
 const mapDispatchToProps = (dispatch) => ({

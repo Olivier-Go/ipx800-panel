@@ -16,7 +16,7 @@ import {
   sendSynoPushNotification,
   fetchSynoLougout,
 } from '../actions/syno';
-import { setSnackbar, setNotificationsLabel } from '../actions/home';
+import { setSnackbar, setNotificationsStatus } from '../actions/home';
 
 const auth = decryptAES(process.env.API_CIPHERTEXT, process.env.API_KEY);
 
@@ -133,7 +133,7 @@ const SynoMiddleware = (store) => (next) => (action) => {
                   store.dispatch(setSnackbar('info', `${device.deviceName} : Notifications désactivées`));
                   return false;
                 });
-                store.dispatch(setNotificationsLabel(false));
+                store.dispatch(setNotificationsStatus(false));
               }
             })
             .catch((error) => {
@@ -156,7 +156,7 @@ const SynoMiddleware = (store) => (next) => (action) => {
                   store.dispatch(setSnackbar('success', `${device.deviceName} : Notifications activées`));
                   return false;
                 });
-                store.dispatch(setNotificationsLabel(true));
+                store.dispatch(setNotificationsStatus(true));
               }
             })
             .catch((error) => {

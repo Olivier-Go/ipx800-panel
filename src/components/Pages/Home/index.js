@@ -5,8 +5,8 @@ import PropTypes from 'prop-types';
 // == Import components
 import { yellow, red } from '@material-ui/core/colors';
 import EmojiObjectsIcon from '@material-ui/icons/EmojiObjects';
-import NotificationsActiveIcon from '@material-ui/icons/NotificationsActive';
-import NotificationsNoneIcon from '@material-ui/icons/NotificationsNone';
+import LockOpenIcon from '@material-ui/icons/LockOpen';
+import LockIcon from '@material-ui/icons/Lock';
 import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
@@ -30,7 +30,6 @@ const Home = ({
   fetchOutputs,
   outputs,
   setOutput,
-  notificationsLabel,
 }) => {
   const classes = homeStyles();
 
@@ -90,9 +89,9 @@ const Home = ({
                 style={{ backgroundColor: red[`${!outputs.OUT4 ? 500 : 800}`] }}
                 startIcon={
                   outputs.OUT4 === 1 ? (
-                    <NotificationsActiveIcon className={classes.homeAlarmIcon} />
+                    <LockIcon className={classes.homeAlarmIcon} />
                   ) : (
-                    <NotificationsNoneIcon className={classes.homeAlarmIcon} />
+                    <LockOpenIcon className={classes.homeAlarmIcon} />
                   )
                 }
                 onClick={() => setOutput(3)}
@@ -100,15 +99,6 @@ const Home = ({
                 <Typography variant="subtitle2" color="secondary">
                   Alarme {outputs.OUT4 ? ('activée') : ('désactivée')}
                 </Typography>
-                <Badge
-                  color="primary"
-                  badgeContent={`${notificationsLabel ? 'on' : 'off'}`}
-                  className={classes.homeAlarmBadge}
-                >
-                  <Typography color="secondary" className={classes.homeAlarmBadgeTxt}>
-                    Notifications
-                  </Typography>
-                </Badge>
               </Button>
             </Grid>
           </Zoom>
@@ -123,7 +113,6 @@ Home.propTypes = {
   fetchOutputs: PropTypes.func.isRequired,
   outputs: PropTypes.object.isRequired,
   setOutput: PropTypes.func.isRequired,
-  notificationsLabel: PropTypes.bool.isRequired,
 };
 
 // == Export

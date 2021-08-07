@@ -27,11 +27,29 @@ const headerStyles = makeStyles((theme) => ({
     alignItems: 'center',
     marginLeft: 'auto',
   },
-  statusIconOffline: {
-    marginRight: theme.spacing(0.5),
+  statusNotificationOn: {
+    marginLeft: theme.spacing(2),
+    color: green[500],
+  },
+  statusNotificationOff: {
+    marginLeft: theme.spacing(2),
     color: red[500],
   },
+  statusIcon: {
+    marginRight: theme.spacing(0.5),
+    color: theme.palette.secondary.dark,
+  },
+  statusIconOffline: {
+    fontSize: '1.6rem',
+    marginRight: theme.spacing(0.5),
+    color: red[500],
+    animationName: '$blinker',
+    animationDuration: '2s',
+    animationTimingFunction: 'ease-in-out;',
+    animationIterationCount: 'infinite',
+  },
   statusIconOnline: {
+    fontSize: '1.6rem',
     marginRight: theme.spacing(0.5),
     color: green[500],
     animationName: '$blinker',
@@ -41,7 +59,8 @@ const headerStyles = makeStyles((theme) => ({
   },
   '@keyframes blinker': {
     from: { opacity: 0 },
-    '50%': { opacity: 0.8 },
+    '30%': { opacity: 0.85 },
+    '50%': { opacity: 1 },
     to: { opacity: 0 },
   },
   menuListItems: {

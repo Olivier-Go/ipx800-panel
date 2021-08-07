@@ -6,7 +6,10 @@ import PropTypes from 'prop-types';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
+import NotificationsActiveIcon from '@material-ui/icons/NotificationsActive';
+import NotificationsOffIcon from '@material-ui/icons/NotificationsOff';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import MenuIcon from '@material-ui/icons/Menu';
@@ -20,7 +23,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import headerStyles from './headerStyles';
 
 // == Composant
-const Header = ({ status }) => {
+const Header = ({ status, iconStatus, notificationsStatus }) => {
   const classes = headerStyles();
   const [open, setOpen] = useState(false);
 
@@ -65,21 +68,34 @@ const Header = ({ status }) => {
               )}
             </div>
           </Drawer>
-          {Object.keys(status).length ? (
-            <div className={classes.status}>
-              <FiberManualRecordIcon className={classes.statusIconOnline} />
-              <Typography align="right" variant="caption">
-                { status.config_hostname } connecté
-              </Typography>
-            </div>
-          ) : (
-            <div className={classes.status}>
-              <FiberManualRecordIcon className={classes.statusIconOffline} />
-              <Typography align="right" variant="caption">
-                hors ligne
-              </Typography>
-            </div>
-          )}
+          <div className={classes.status}>
+            {iconStatus ? (
+              <>
+                {Object.keys(status).length ? (
+                  <>
+                    <FiberManualRecordIcon className={classes.statusIconOnline} />
+                    <Typography align="right" variant="caption">
+                      { status.config_hostname }
+                    </Typography>
+                  </>
+                ) : (
+                  <>
+                    <FiberManualRecordIcon className={classes.statusIconOffline} />
+                    <Typography align="right" variant="caption">
+                      hors ligne
+                    </Typography>
+                  </>
+                )}
+              </>
+            ) : (
+              <CircularProgress size={20} className={classes.statusIcon} />
+            )}
+            {notificationsStatus ? (
+              <NotificationsActiveIcon className={classes.statusNotificationOn} />
+            ) : (
+              <NotificationsOffIcon className={classes.statusNotificationOff} />
+            )}
+          </div>
         </Toolbar>
       </AppBar>
     </>
@@ -88,6 +104,8 @@ const Header = ({ status }) => {
 
 Header.propTypes = {
   status: PropTypes.object.isRequired,
+  iconStatus: PropTypes.bool.isRequired,
+  notificationsStatus: PropTypes.bool.isRequired,
 };
 
 // == Export

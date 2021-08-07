@@ -46,17 +46,6 @@ const homeStyles = makeStyles((theme) => ({
     height: 50,
     width: 50,
   },
-  homeAlarmBadge: {
-    fontSize: '6px',
-    position: 'absolute',
-    bottom: 5,
-    right: 24,
-    width: '5.3rem',
-  },
-  homeAlarmBadgeTxt: {
-    fontSize: '12px',
-    textTransform: 'capitalize',
-  },
 }));
 
 export default homeStyles;

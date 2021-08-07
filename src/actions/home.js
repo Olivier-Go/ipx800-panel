@@ -6,7 +6,7 @@ export const FETCH_OUTPUTS = 'FETCH_OUTPUTS';
 export const SET_STATUS = 'SET_STATUS';
 export const SET_OUTPUTS_DEFAULT = 'SET_OUTPUTS_DEFAULT';
 export const SET_OUTPUT = 'SET_OUTPUT';
-export const SET_NOTIFICATIONS_LABEL = 'SET_NOTIFICATIONS_LABEL';
+export const SET_NOTIFICATIONS_STATUS = 'SET_NOTIFICATIONS_STATUS';
 
 // action creators
 export const setSnackbar = (severity, message) => ({
@@ -42,7 +42,7 @@ export const setOutput = (value) => ({
   value,
 });
 
-export const setNotificationsLabel = (value) => ({
-  type: SET_NOTIFICATIONS_LABEL,
+export const setNotificationsStatus = (value) => ({
+  type: SET_NOTIFICATIONS_STATUS,
   value,
 });
