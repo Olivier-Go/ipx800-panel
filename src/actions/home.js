@@ -7,6 +7,7 @@ export const SET_STATUS = 'SET_STATUS';
 export const SET_OUTPUTS_DEFAULT = 'SET_OUTPUTS_DEFAULT';
 export const SET_OUTPUT = 'SET_OUTPUT';
 export const SET_NOTIFICATIONS_STATUS = 'SET_NOTIFICATIONS_STATUS';
+export const SET_NOTIFICATIONS_STATUS_LOADER = 'SET_NOTIFICATIONS_STATUS_LOADER';
 export const SET_ALARM_LOADER_PROGRESS = 'SET_ALARM_LOADER_PROGRESS';
 
 // action creators
@@ -45,6 +46,11 @@ export const setOutput = (value) => ({
 
 export const setNotificationsStatus = (value) => ({
   type: SET_NOTIFICATIONS_STATUS,
+  value,
+});
+
+export const setNotificationsStatusLoader = (value) => ({
+  type: SET_NOTIFICATIONS_STATUS_LOADER,
   value,
 });
 

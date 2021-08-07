@@ -4,19 +4,27 @@ import {
   SYNO_FETCH_INFOS,
   SYNO_FETCH_AUTHENTICATION,
   SYNO_FETCH_PUSH_DEVICES,
+  SYNO_FETCH_NOTIFICATION_FILTERS,
   SET_SYNO_NOTIFICATION_FILTERS,
   SEND_SYNO_PUSH_NOTIFICATION,
   SYNO_FETCH_LOGOUT,
+  synoFetchInfos,
   setSynoInfos,
   fetchSynoAuthentication,
   setSynoAuthentication,
   fetchSynoPushDevices,
   setSynoPushDevices,
+  fetchSynoNotificationFilters,
   setSynoNotificationFilters,
   sendSynoPushNotification,
   fetchSynoLougout,
 } from '../actions/syno';
-import { setSnackbar, setNotificationsStatus, setAlarmLoaderProgress } from '../actions/home';
+import {
+  setSnackbar,
+  setNotificationsStatus,
+  setNotificationsStatusLoader,
+  setAlarmLoaderProgress,
+} from '../actions/home';
 
 const auth = decryptAES(process.env.API_CIPHERTEXT, process.env.API_KEY);
 
@@ -34,8 +42,8 @@ const SynoMiddleware = (store) => (next) => (action) => {
           if (response.data.success) {
             const { path } = response.data.data['SYNO.SurveillanceStation.Camera'];
             store.dispatch(setSynoInfos(path));
-            store.dispatch(fetchSynoAuthentication());
-            store.dispatch(setAlarmLoaderProgress(20));
+            store.dispatch(fetchSynoAuthentication(action.setData));
+            store.dispatch(setAlarmLoaderProgress(action.setData ? 20 : 100));
           }
         })
         .catch((error) => {
@@ -64,8 +72,8 @@ const SynoMiddleware = (store) => (next) => (action) => {
           if (response.data.success) {
             const { sid } = response.data.data;
             store.dispatch(setSynoAuthentication(sid));
-            store.dispatch(fetchSynoPushDevices());
-            store.dispatch(setAlarmLoaderProgress(30));
+            store.dispatch(fetchSynoPushDevices(action.setData));
+            store.dispatch(setAlarmLoaderProgress(action.setData ? 30 : 100));
           }
         })
         .catch((error) => {
@@ -97,10 +105,13 @@ const SynoMiddleware = (store) => (next) => (action) => {
               store.dispatch(setSnackbar('error', 'Le Service Push DSCAM n\'est activé sur aucun téléphone'));
               store.dispatch(setAlarmLoaderProgress(100));
             }
-            else {
+            else if (action.setData) {
               store.dispatch(setSynoPushDevices(pushDevices));
               store.dispatch(setSynoNotificationFilters());
               store.dispatch(setAlarmLoaderProgress(50));
+            }
+            else {
+              store.dispatch(fetchSynoNotificationFilters());
             }
           }
         })
@@ -112,6 +123,54 @@ const SynoMiddleware = (store) => (next) => (action) => {
         })
         .finally(() => {
         });
+
+      next(action);
+      break;
+    }
+
+    /*
+    * FETCH SURVEILLANCE STATION NOTIFICATION FILTERS
+    */
+    case SYNO_FETCH_NOTIFICATION_FILTERS: {
+      const { path, sid } = store.getState().syno;
+      if (path && sid) {
+        axios({
+          method: 'get',
+          url: `${process.env.SYNO_API_URL}/webapi/${path}?api=SYNO.SurveillanceStation.Notification.Filter&version=1&method=Get&_sid=${sid}`,
+        })
+          .then((response) => {
+            if (response.data.success) {
+              const { list } = response.data.data;
+              list.map((event) => {
+                if (event.eventGroupType === 2 && event.eventType === 7) {
+                  /*
+                  * 7=5 => push mobile notifications enabled
+                  */
+                  switch (event.filter) {
+                    case 5:
+                      store.dispatch(setNotificationsStatus(true));
+                      store.dispatch(setNotificationsStatusLoader(false));
+                      break;
+                    default:
+                      store.dispatch(setNotificationsStatus(false));
+                      store.dispatch(setNotificationsStatusLoader(false));
+                  }
+                }
+                return false;
+              });
+            }
+          })
+          .catch((error) => {
+            // eslint-disable-next-line no-console
+            console.warn(error);
+            store.dispatch(setSnackbar('error', 'Echec récupération état des notifications Surveillance Station'));
+          })
+          .finally(() => {
+          });
+      }
+      else {
+        store.dispatch(synoFetchInfos(false));
+      }
 
       next(action);
       break;
@@ -142,6 +201,7 @@ const SynoMiddleware = (store) => (next) => (action) => {
                   return false;
                 });
                 store.dispatch(setNotificationsStatus(false));
+                store.dispatch(setNotificationsStatusLoader(false));
               }
             })
             .catch((error) => {
@@ -167,6 +227,7 @@ const SynoMiddleware = (store) => (next) => (action) => {
                   return false;
                 });
                 store.dispatch(setNotificationsStatus(true));
+                store.dispatch(setNotificationsStatusLoader(false));
               }
             })
             .catch((error) => {

@@ -4,6 +4,7 @@ import {
   SET_STATUS,
   SET_OUTPUTS_DEFAULT,
   SET_NOTIFICATIONS_STATUS,
+  SET_NOTIFICATIONS_STATUS_LOADER,
   SET_ALARM_LOADER_PROGRESS,
 } from '../actions/home';
 
@@ -17,6 +18,7 @@ const initialState = {
   snackbarMessage: '',
   // Status Icons
   iconStatus: false,
+  notificationsStatusLoader: true,
   notificationsStatus: false,
   alarmLoader: false,
   alarmLoaderProgress: 0,
@@ -56,6 +58,12 @@ const homeReducer = (state = initialState, action = {}) => {
       return {
         ...state,
         notificationsStatus: action.value,
+      };
+
+    case SET_NOTIFICATIONS_STATUS_LOADER:
+      return {
+        ...state,
+        notificationsStatusLoader: action.value,
       };
 
     case SET_ALARM_LOADER_PROGRESS:

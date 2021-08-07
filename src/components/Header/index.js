@@ -1,5 +1,5 @@
 // == Import npm
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
 // == Import components
@@ -23,9 +23,19 @@ import ListItemText from '@material-ui/core/ListItemText';
 import headerStyles from './headerStyles';
 
 // == Composant
-const Header = ({ status, iconStatus, notificationsStatus }) => {
+const Header = ({
+  status,
+  iconStatus,
+  notificationsStatus,
+  notificationsStatusLoader,
+  fetchSynoNotificationFilters,
+}) => {
   const classes = headerStyles();
   const [open, setOpen] = useState(false);
+
+  useEffect(() => {
+    fetchSynoNotificationFilters();
+  }, ['AppBar']);
 
   const handleClick = () => {
     setOpen(!open);
@@ -90,10 +100,16 @@ const Header = ({ status, iconStatus, notificationsStatus }) => {
             ) : (
               <CircularProgress size={20} className={classes.statusIcon} />
             )}
-            {notificationsStatus ? (
-              <NotificationsActiveIcon className={classes.statusNotificationOn} />
+            {notificationsStatusLoader ? (
+              <CircularProgress size={20} className={classes.statusNotificationIcon} />
             ) : (
-              <NotificationsOffIcon className={classes.statusNotificationOff} />
+              <>
+                {notificationsStatus ? (
+                  <NotificationsActiveIcon className={classes.statusNotificationOn} />
+                ) : (
+                  <NotificationsOffIcon className={classes.statusNotificationOff} />
+                )}
+              </>
             )}
           </div>
         </Toolbar>
@@ -106,6 +122,8 @@ Header.propTypes = {
   status: PropTypes.object.isRequired,
   iconStatus: PropTypes.bool.isRequired,
   notificationsStatus: PropTypes.bool.isRequired,
+  notificationsStatusLoader: PropTypes.bool.isRequired,
+  fetchSynoNotificationFilters: PropTypes.func.isRequired,
 };
 
 // == Export
