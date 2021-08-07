@@ -74,8 +74,8 @@ const HomeMiddleware = (store) => (next) => (action) => {
         },
       })
         .then(() => {
+          if (action.value === 3) store.dispatch(synoFetchInfos());
           store.dispatch(fetchOutputs());
-          store.dispatch(synoFetchInfos());
         })
         .catch((error) => {
           // eslint-disable-next-line no-console
