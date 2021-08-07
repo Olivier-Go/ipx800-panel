@@ -16,7 +16,7 @@ import {
   sendSynoPushNotification,
   fetchSynoLougout,
 } from '../actions/syno';
-import { setSnackbar, setNotificationsStatus } from '../actions/home';
+import { setSnackbar, setNotificationsStatus, setAlarmLoaderProgress } from '../actions/home';
 
 const auth = decryptAES(process.env.API_CIPHERTEXT, process.env.API_KEY);
 
@@ -35,12 +35,14 @@ const SynoMiddleware = (store) => (next) => (action) => {
             const { path } = response.data.data['SYNO.SurveillanceStation.Camera'];
             store.dispatch(setSynoInfos(path));
             store.dispatch(fetchSynoAuthentication());
+            store.dispatch(setAlarmLoaderProgress(20));
           }
         })
         .catch((error) => {
           // eslint-disable-next-line no-console
           console.warn(error);
           store.dispatch(setSnackbar('error', 'Echec de la connexion à Surveillance Station'));
+          store.dispatch(setAlarmLoaderProgress(100));
         })
         .finally(() => {
         });
@@ -63,12 +65,14 @@ const SynoMiddleware = (store) => (next) => (action) => {
             const { sid } = response.data.data;
             store.dispatch(setSynoAuthentication(sid));
             store.dispatch(fetchSynoPushDevices());
+            store.dispatch(setAlarmLoaderProgress(30));
           }
         })
         .catch((error) => {
           // eslint-disable-next-line no-console
           console.warn(error);
           store.dispatch(setSnackbar('error', 'Echec de l\'authentification à Surveillance Station'));
+          store.dispatch(setAlarmLoaderProgress(100));
         })
         .finally(() => {
         });
@@ -91,10 +95,12 @@ const SynoMiddleware = (store) => (next) => (action) => {
             const pushDevices = response.data.data.list;
             if (!pushDevices.length) {
               store.dispatch(setSnackbar('error', 'Le Service Push DSCAM n\'est activé sur aucun téléphone'));
+              store.dispatch(setAlarmLoaderProgress(100));
             }
             else {
               store.dispatch(setSynoPushDevices(pushDevices));
               store.dispatch(setSynoNotificationFilters());
+              store.dispatch(setAlarmLoaderProgress(50));
             }
           }
         })
@@ -102,6 +108,7 @@ const SynoMiddleware = (store) => (next) => (action) => {
           // eslint-disable-next-line no-console
           console.warn(error);
           store.dispatch(setSnackbar('error', 'Echec récupération des appareils pairés à Surveillance Station'));
+          store.dispatch(setAlarmLoaderProgress(100));
         })
         .finally(() => {
         });
@@ -131,6 +138,7 @@ const SynoMiddleware = (store) => (next) => (action) => {
                 pushDevices.map((device) => {
                   store.dispatch(sendSynoPushNotification('Notifications d\'alarme désactivées depuis IPX800-Panel'));
                   store.dispatch(setSnackbar('info', `${device.deviceName} : Notifications désactivées`));
+                  store.dispatch(setAlarmLoaderProgress(70));
                   return false;
                 });
                 store.dispatch(setNotificationsStatus(false));
@@ -140,6 +148,7 @@ const SynoMiddleware = (store) => (next) => (action) => {
               // eslint-disable-next-line no-console
               console.warn(error);
               store.dispatch(setSnackbar('error', 'Echec désactivation des notifications Surveillance Station'));
+              store.dispatch(setAlarmLoaderProgress(100));
             })
             .finally(() => {
             });
@@ -154,6 +163,7 @@ const SynoMiddleware = (store) => (next) => (action) => {
                 pushDevices.map((device) => {
                   store.dispatch(sendSynoPushNotification('Notifications d\'alarme activées depuis IPX800-Panel'));
                   store.dispatch(setSnackbar('success', `${device.deviceName} : Notifications activées`));
+                  store.dispatch(setAlarmLoaderProgress(70));
                   return false;
                 });
                 store.dispatch(setNotificationsStatus(true));
@@ -163,6 +173,7 @@ const SynoMiddleware = (store) => (next) => (action) => {
               // eslint-disable-next-line no-console
               console.warn(error);
               store.dispatch(setSnackbar('error', 'Echec activation des notifications Surveillance Station'));
+              store.dispatch(setAlarmLoaderProgress(100));
             })
             .finally(() => {
             });
@@ -184,10 +195,12 @@ const SynoMiddleware = (store) => (next) => (action) => {
       })
         .then(() => {
           store.dispatch(fetchSynoLougout());
+          store.dispatch(setAlarmLoaderProgress(90));
         })
         .catch((error) => {
           // eslint-disable-next-line no-console
           console.warn(error);
+          store.dispatch(setAlarmLoaderProgress(100));
         })
         .finally(() => {
         });
@@ -212,6 +225,7 @@ const SynoMiddleware = (store) => (next) => (action) => {
           store.dispatch(setSnackbar('error', 'Erreur déconnexion API Surveillance Station'));
         })
         .finally(() => {
+          store.dispatch(setAlarmLoaderProgress(100));
         });
 
       next(action);

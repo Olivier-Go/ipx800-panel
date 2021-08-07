@@ -3,7 +3,12 @@ import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 
 // == Import components
-import { yellow, red } from '@material-ui/core/colors';
+import {
+  yellow,
+  grey,
+  red,
+  green,
+} from '@material-ui/core/colors';
 import EmojiObjectsIcon from '@material-ui/icons/EmojiObjects';
 import LockOpenIcon from '@material-ui/icons/LockOpen';
 import LockIcon from '@material-ui/icons/Lock';
@@ -13,6 +18,7 @@ import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import Zoom from '@material-ui/core/Zoom';
 import Badge from '@material-ui/core/Badge';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import { withStyles } from '@material-ui/core/styles';
 
 // == Import styles
@@ -30,8 +36,15 @@ const Home = ({
   fetchOutputs,
   outputs,
   setOutput,
+  alarmLoader,
+  alarmLoaderProgress,
 }) => {
   const classes = homeStyles();
+
+  let alarmBtnColor = grey[500];
+  if (!alarmLoader) {
+    alarmBtnColor = !outputs.OUT4 ? red[500] : green[500];
+  }
 
   useEffect(() => {
     fetchStatus();
@@ -86,19 +99,26 @@ const Home = ({
             <Grid container className={classes.homeWrapper} spacing={3}>
               <Button
                 className={classes.homeAlarmBtn}
-                style={{ backgroundColor: red[`${!outputs.OUT4 ? 500 : 800}`] }}
+                style={{ backgroundColor: `${alarmBtnColor}` }}
                 startIcon={
-                  outputs.OUT4 === 1 ? (
-                    <LockIcon className={classes.homeAlarmIcon} />
-                  ) : (
-                    <LockOpenIcon className={classes.homeAlarmIcon} />
+                  !alarmLoader && (
+                    outputs.OUT4 === 1 ? (
+                      <LockIcon className={classes.homeAlarmIcon} />
+                    ) : (
+                      <LockOpenIcon className={classes.homeAlarmIcon} />
+                    )
                   )
                 }
                 onClick={() => setOutput(3)}
+                disabled={alarmLoader}
               >
-                <Typography variant="subtitle2" color="secondary">
-                  Alarme {outputs.OUT4 ? ('activée') : ('désactivée')}
-                </Typography>
+                {alarmLoader ? (
+                  <CircularProgress color="secondary" variant="determinate" thickness={5} value={alarmLoaderProgress} />
+                ) : (
+                  <Typography variant="subtitle2" color="secondary">
+                    Alarme {outputs.OUT4 ? ('activée') : ('désactivée')}
+                  </Typography>
+                )}
               </Button>
             </Grid>
           </Zoom>
@@ -113,6 +133,8 @@ Home.propTypes = {
   fetchOutputs: PropTypes.func.isRequired,
   outputs: PropTypes.object.isRequired,
   setOutput: PropTypes.func.isRequired,
+  alarmLoader: PropTypes.bool.isRequired,
+  alarmLoaderProgress: PropTypes.number.isRequired,
 };
 
 // == Export

@@ -4,6 +4,7 @@ import {
   SET_STATUS,
   SET_OUTPUTS_DEFAULT,
   SET_NOTIFICATIONS_STATUS,
+  SET_ALARM_LOADER_PROGRESS,
 } from '../actions/home';
 
 const initialState = {
@@ -17,6 +18,8 @@ const initialState = {
   // Status Icons
   iconStatus: false,
   notificationsStatus: false,
+  alarmLoader: false,
+  alarmLoaderProgress: 0,
 };
 
 const homeReducer = (state = initialState, action = {}) => {
@@ -53,6 +56,13 @@ const homeReducer = (state = initialState, action = {}) => {
       return {
         ...state,
         notificationsStatus: action.value,
+      };
+
+    case SET_ALARM_LOADER_PROGRESS:
+      return {
+        ...state,
+        alarmLoader: action.value < 100,
+        alarmLoaderProgress: action.value,
       };
 
     default: return state;

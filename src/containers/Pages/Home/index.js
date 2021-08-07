@@ -5,6 +5,8 @@ import Home from 'src/components/Pages/Home';
 
 const mapStateToProps = (state) => ({
   outputs: state.home.outputs,
+  alarmLoader: state.home.alarmLoader,
+  alarmLoaderProgress: state.home.alarmLoaderProgress,
 });
 
 const mapDispatchToProps = (dispatch) => ({
