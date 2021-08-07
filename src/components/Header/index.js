@@ -81,7 +81,7 @@ const Header = ({
                   </Typography>
                 </div>
               )}
-              {Object.keys(pushDevices).length > 0 && (
+              {(Object.keys(pushDevices).length > 0 && notificationsStatus) && (
                 <div className={classes.menuListItems}>
                   <Divider className={classes.menuListDivider} />
                   <Typography align="center" variant="h6" gutterBottom>
