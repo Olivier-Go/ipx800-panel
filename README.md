@@ -7,7 +7,6 @@
 
 ![made-with-react](https://img.shields.io/badge/Made_with-React_/Redux-orange?style=flat)  ![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/olivier-go/ipx800-react-pwa)  [![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/dwyl/esta/issues)
 
-***
 
 ![](screenshots/screen-20210807-184215.gif)
 
@@ -17,9 +16,9 @@
 
 ***
 
-*This Progressive Web Application allows to interact remotely with the integrated API of IPX800 v3 device from GCE Electronics.*
+This Progressive Web Application allows to interact remotely with the integrated API of IPX800 v3 device from GCE Electronics.
 
-*It also allows to trigger push notifications of Synology Surveillance Station system for videoprotection applications.*
+It also allows to trigger push notifications of Synology Surveillance Station system for videoprotection applications.
 
 ***
 
