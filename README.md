@@ -12,7 +12,7 @@
     <img src="screenshots/screen-20210807-184215.gif" width="320"> 
 </p>
 
-#### :iphone:*Android screenshots* :
+#### :iphone: *Android screenshots* :
 <p>
     <img src="screenshots/Screenshot_20210807-183629.png" width="180"> <img src="screenshots/Screenshot_20210807-184817.png" width="180"> <img src="screenshots/Screenshot_20210807-183701.png" width="180"> <img src="screenshots/Screenshot_20210807-184110.png" width="180"> <img src="screenshots/Screenshot_20210807-184024.png" width="180"> <img src="screenshots/Screenshot_20210807-184054.png" width="180">
 </p>
@@ -41,7 +41,7 @@ yarn start
 
 ### Build :
 
-Rename `.env.production.dist` to `.env.production.dist` and set IPX800 and Synology Surveillance Station API url and authentication informations, for production environment.
+Rename `.env.production.dist` to `.env.production` and set IPX800 and Synology Surveillance Station API url and authentication informations, for production environment.
 
 ```sh
 yarn build
