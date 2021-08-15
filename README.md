@@ -48,3 +48,8 @@ yarn build
 ```
 
 Deploy it on a webserver and enjoy :blush:
+
+***
+
+### Documentation
+ - [Surveillance_Station_Web_API](docs/Surveillance_Station_Web_API.pdf)
