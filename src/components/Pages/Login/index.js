@@ -69,7 +69,13 @@ const Login = ({
               </CardActions>
             </Card>
             {numbers.map((value) => (
-              <Grid key={value} item xs={4} onClick={() => handlePassword(value)}>
+              <Grid
+                className={classes.loginKey}
+                key={value}
+                item
+                xs={4}
+                onClick={() => handlePassword(value)}
+              >
                 <Fab size="large" color="secondary" aria-label="number">
                   <Typography variant="h5">
                     {value}

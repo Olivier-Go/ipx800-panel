@@ -14,7 +14,7 @@ const loginStyles = makeStyles((theme) => ({
   loginBack: {
     position: 'absolute',
     bottom: 12,
-    right: 28,
+    right: 20,
   },
   loginPin: {
     width: '100%',
@@ -23,8 +23,11 @@ const loginStyles = makeStyles((theme) => ({
   },
   loginLogo: {
     opacity: '0.8',
-    width: 130,
+    width: 50,
     margin: '1rem auto 0.3rem auto',
+    [theme.breakpoints.up('321')]: {
+      width: 130,
+    },
   },
   loginCode: {
     width: 130,
@@ -39,6 +42,10 @@ const loginStyles = makeStyles((theme) => ({
   },
   loginDotFull: {
     fontSize: '1.8em',
+  },
+  loginKey: {
+    display: 'flex',
+    justifyContent: 'center',
   },
 }));
 
